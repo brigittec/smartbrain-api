@@ -1,5 +1,9 @@
 const registerHandler = (req, res, db, bcrypt) => {
-	const {email, name, password} = req.body; //destructuring
+    const {email, name, password} = req.body; //destructuring
+    
+    if (!email || !name || !password){
+       return res.status(400).json('Please fill in all the fields to register');
+    }
 	const hash = bcrypt.hashSync(password);
 
 	db.transaction(trx => {
